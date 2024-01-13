@@ -5,7 +5,7 @@ ASM 		:= nasm
 
 OBJ_DIR		:= build
 
-SRC_FILES	:= strlen.s strcpy.s strcmp.s
+SRC_FILES	:= strlen.s strcpy.s strcmp.s strdup.s
 OBJ_FILES	:= $(patsubst %.s,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 .PHONY: all clean fclean re check
@@ -21,7 +21,7 @@ $(OBJ_DIR)/%.o: %.s Makefile
 	$(ASM) $< -o $@ -f elf64
 
 check: $(NAME) Makefile
-	$(CC) -g test.c -o $@ $(NAME)
+	$(CC) -g test.c -o $@ $(NAME) #-static
 	./$@
 
 clean:
