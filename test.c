@@ -86,6 +86,32 @@ static void check_read()
   assert(!close(make));
 }
 
+static void check_write()
+{
+  assert(ft_write(-1, "hallo", 5) == -1);
+  assert(errno == EBADF);
+
+  int dev = open("/", O_RDONLY);
+  assert(dev >= 0);
+  assert(ft_read(dev, "hallo", 5) == -1);
+  assert(errno == EISDIR);
+  assert(!close(dev));
+
+  char str[] = "Hello world!";
+  int fd = open("tmp", O_RDWR | O_CREAT | O_EXCL);
+  assert(fd != -1);
+
+  assert(ft_write(fd, str, sizeof str) == sizeof str);
+  assert(lseek(fd, 0, SEEK_SET) != -1);
+
+  char buf[128];
+  assert(read(fd, buf, sizeof buf) == sizeof str);
+  assert(!memcmp(str, buf, sizeof buf > sizeof str ? sizeof str : sizeof buf));
+  assert(!close(fd));
+
+  assert(unlink("tmp") != -1);
+}
+
 int main()
 {
   check_strlen();

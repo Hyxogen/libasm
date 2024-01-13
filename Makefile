@@ -5,7 +5,7 @@ ASM 		:= nasm
 
 OBJ_DIR		:= build
 
-SRC_FILES	:= strlen.s strcpy.s strcmp.s strdup.s read.s
+SRC_FILES	:= strlen.s strcpy.s strcmp.s strdup.s read.s write.s
 OBJ_FILES	:= $(patsubst %.s,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 .PHONY: all clean fclean re check
