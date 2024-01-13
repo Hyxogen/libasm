@@ -30,8 +30,19 @@ static void check_strcpy()
   assert(strcmp(buffer, str2) == 0);
 }
 
+static void check_strcmp()
+{
+  assert(ft_strcmp("", "") == 0);
+  assert(ft_strcmp("hello", "hello") == 0);
+  assert(ft_strcmp("ab", "ac") < 0);
+  assert(ft_strcmp("ac", "ab") > 0);
+  assert(ft_strcmp("abc", "acc") < 0);
+  assert(ft_strcmp("acc", "abc") > 0);
+}
+
 int main()
 {
   check_strlen();
   check_strcpy();
+  check_strcmp();
 }
