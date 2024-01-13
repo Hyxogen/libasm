@@ -2,6 +2,11 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+#include <stdio.h>
 
 static void check_strlen()
 {
@@ -54,10 +59,38 @@ static void check_strdup()
   check_strdup_one("hallo");
 }
 
+static void check_read()
+{
+  char a[1024], b[1024];
+
+  memset(a, 0, sizeof a);
+  memset(b, 0, sizeof b);
+  assert(ft_read(-1, NULL, 0) == -1);
+  assert(errno == EBADF);
+
+  int dev = open("/", O_RDONLY);
+  assert(dev >= 0);
+  assert(ft_read(dev, a, sizeof a) == -1);
+  assert(errno == EISDIR);
+  assert(!close(dev));
+
+  int make = open("Makefile", O_RDONLY);
+  ssize_t theirs = read(make, a, sizeof a);
+
+  assert(theirs != -1);
+  assert(lseek(make, 0, SEEK_SET) != -1);
+
+  assert(ft_read(make, b, sizeof b) == theirs);
+  assert(!strncmp(a, b, sizeof a));
+
+  assert(!close(make));
+}
+
 int main()
 {
   check_strlen();
   check_strcpy();
   check_strcmp();
   check_strdup();
+  check_read();
 }
