@@ -1,6 +1,7 @@
 #include "libasm.h"
 #include <assert.h>
 #include <string.h>
+#include <stdlib.h>
 
 static void check_strlen()
 {
@@ -40,9 +41,23 @@ static void check_strcmp()
   assert(ft_strcmp("acc", "abc") > 0);
 }
 
+static void check_strdup_one(const char *s)
+{
+  char *d = ft_strdup(s);
+  assert(!strcmp(d, s));
+  free(d);
+}
+
+static void check_strdup()
+{
+  check_strdup_one("");
+  check_strdup_one("hallo");
+}
+
 int main()
 {
   check_strlen();
   check_strcpy();
   check_strcmp();
+  check_strdup();
 }
