@@ -14,16 +14,15 @@ global ft_strcmp
 ; }
 
 ft_strcmp:
-  mov rax, -1
+  mov rdx, -1
 .loop:
-  inc rax
-  mov dl, byte [rdi + rax]
-  mov dh, byte [rsi + rax]
-  cmp dl, dh
+  inc rdx
+  movzx rax, byte [rdi + rdx]
+  movzx rcx, byte [rsi + rdx]
+  cmp rax, rcx
   jnz .end
-  test dl, dl
+  test rax, rax
   jnz .loop
-.end
-  sub dl, dh
-  movsx rax, dl
+.end:
+  sub rax, rcx
   ret
