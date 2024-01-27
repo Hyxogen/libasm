@@ -13,6 +13,7 @@ extern ft_strlen, ft_strcpy, malloc
 ; }
 
 ft_strdup:
+  push rbx
   mov rbx, rdi
   call ft_strlen
   mov rdi, rax
@@ -23,4 +24,5 @@ ft_strdup:
   mov rsi, rbx
   call ft_strcpy
 .end:
+  pop rbx
   ret
