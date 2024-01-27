@@ -43,23 +43,23 @@ ft_list_sort:
 
 .loop_body:
   mov rdi, [rbx]
-  mov rsi, [rbx + 8]
+  mov rsi, [rbx + 0x8]
   mov rsi, [rsi]
   call r12
 
   test eax, eax
   jle .sorted
 
-  mov r14, [rbx + 8]
-  mov rsi, [rbx + 8]
-  mov rsi, [rsi + 8]
-  mov [rbx + 8], rsi
-  mov [r14 + 8], rbx
+  mov r14, [rbx + 0x8]
+  mov rsi, [rbx + 0x8]
+  mov rsi, [rsi + 0x8]
+  mov [rbx + 0x8], rsi
+  mov [r14 + 0x8], rbx
 
   test r13, r13
   jz .update_begin
 
-  mov [r13 + 8], r14
+  mov [r13 + 0x8], r14
   jmp .reset
 
 .update_begin:
@@ -72,13 +72,12 @@ ft_list_sort:
 
 .sorted:
   mov r13, rbx
-  mov rbx, [rbx + 8]
+  mov rbx, [rbx + 0x8]
 .loop_check:
   test rbx, rbx
   jz .end
-  mov rdi, [rbx + 8] ; TODO try cmp [rbx + 8], 0
-  test rdi, rdi
-  jnz .loop_body
+  cmp qword [rbx + 0x8], 0
+  jne .loop_body
 
 .end:
   pop r15
