@@ -10,5 +10,6 @@ int ft_strcmp(const char *a, const char *b);
 char *ft_strdup(const char *s);
 ssize_t ft_read(int fd, char *buffer, size_t n);
 ssize_t ft_write(int fd, const char *buffer, size_t n);
+int ft_atoi_base(const char *s, const char *base);
 
 #endif

@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <limits.h>
 
 #include <stdio.h>
 
@@ -112,6 +113,30 @@ static void check_write()
   assert(unlink("tmp") != -1);
 }
 
+static void check_atoi_base()
+{
+  const char *base10 = "0123456789";
+  const char *base2 = "01";
+  const char *base8 = "01234567";
+  const char *base16 = "0123456789abcdef";
+
+  assert(ft_atoi_base("", "") == 0);
+  assert(ft_atoi_base("0", base10) == 0);
+  assert(ft_atoi_base("00", base10) == 0);
+  assert(ft_atoi_base("1", base10) == 1);
+  assert(ft_atoi_base("01", base10) == 1);
+  assert(ft_atoi_base("-1", base10) == -1);
+  assert(ft_atoi_base("--1", base10) == 1);
+  assert(ft_atoi_base("2147483647", base10) == 2147483647);
+  assert(ft_atoi_base("   --2147483647", base10) == 2147483647);
+  assert(ft_atoi_base("-2147483648", base10) == INT_MIN);
+  assert(ft_atoi_base("---2147483647", base10) == -2147483647);
+  assert(ft_atoi_base("7fffffff", base16) == 0x7fffffff);
+  assert(ft_atoi_base(" 0 1", base2) == 0);
+  assert(ft_atoi_base(" 01", base2) == 1);
+  assert(ft_atoi_base("8", base8) == 0);
+}
+
 int main()
 {
   check_strlen();
@@ -119,4 +144,5 @@ int main()
   check_strcmp();
   check_strdup();
   check_read();
+  check_atoi_base();
 }
