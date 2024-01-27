@@ -132,6 +132,8 @@ static void check_atoi_base()
   assert(ft_atoi_base("-2147483648", base10) == INT_MIN);
   assert(ft_atoi_base("---2147483647", base10) == -2147483647);
   assert(ft_atoi_base("7fffffff", base16) == 0x7fffffff);
+  assert(ft_atoi_base("-f", base16) == -15);
+  assert(ft_atoi_base("-7fffffff", base16) == -0x7fffffff);
   assert(ft_atoi_base(" 0 1", base2) == 0);
   assert(ft_atoi_base(" 01", base2) == 1);
   assert(ft_atoi_base("8", base8) == 0);
