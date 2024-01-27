@@ -167,6 +167,49 @@ static void check_list_size() {
   }
 }
 
+int cmp_int(int *a, int *b)
+{
+  return (*b < *a) - (*a < *b);
+}
+
+#define TEST_LISTN(arr, len, cmp) \
+  do { \
+    t_list *__list = NULL; \
+    unsigned __i = len; \
+    while (__i--) \
+      ft_list_push_front(&__list, &arr[__i]); \
+    ft_list_sort(&__list, cmp); \
+    while (__list && __list->next) { \
+      assert(cmp(__list->data, __list->next->data) <= 0); \
+      t_list *tmp = __list; \
+      __list = __list->next; \
+      free(tmp); \
+    } \
+  } while (0)
+
+#define TEST_LIST(arr, cmp) TEST_LISTN(arr, sizeof(arr)/sizeof(arr[0]), cmp)
+
+static void check_list_sort() {
+  int empty[0];
+  TEST_LISTN(empty, 0, cmp_int);
+
+  int sorted[] = { -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+  int unsorted[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1 };
+  int unsorted_dup[] = { 4, 3, 2, 1, 0, 4, 3, 2, 1, 0, -1 };
+  for (int i = 0; i < sizeof(sorted)/sizeof(sorted[0]); ++i) {
+    TEST_LISTN(sorted, i, cmp_int);
+    TEST_LISTN(unsorted, i, cmp_int);
+    TEST_LISTN(unsorted_dup, i, cmp_int);
+  }
+
+  int random[10];
+  for (int n = 0; n < 100; ++n) {
+    for (unsigned i = 0; i < sizeof(random)/sizeof(random[0]); ++i)
+      random[i] = rand();
+    TEST_LIST(random, cmp_int);
+  }
+}
+
 int main()
 {
   check_strlen();
@@ -177,4 +220,5 @@ int main()
   check_atoi_base();
   check_push_front();
   check_list_size();
+  check_list_sort();
 }
