@@ -139,6 +139,25 @@ static void check_atoi_base()
   assert(ft_atoi_base("8", base8) == 0);
 }
 
+static void check_push_front() {
+  t_list *list = NULL;
+
+  int i = 42;
+  ft_list_push_front(&list,  &i);
+  assert(list);
+  assert(list->data == &i);
+  assert(list->next == NULL);
+
+  t_list *tmp = list;
+  int j = 21;
+  ft_list_push_front(&list, &j);
+  assert(list);
+  assert(list->data == &j);
+  assert(list->next == tmp);
+  assert(list->next->data == &i);
+  assert(list->next->next == NULL);
+}
+
 int main()
 {
   check_strlen();
@@ -147,4 +166,5 @@ int main()
   check_strdup();
   check_read();
   check_atoi_base();
+  check_push_front();
 }

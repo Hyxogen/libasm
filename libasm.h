@@ -12,4 +12,11 @@ ssize_t ft_read(int fd, char *buffer, size_t n);
 ssize_t ft_write(int fd, const char *buffer, size_t n);
 int ft_atoi_base(const char *s, const char *base);
 
+typedef struct s_list {
+  void *data;
+  struct s_list *next;
+} t_list;
+
+void ft_list_push_front(t_list **begin_list, void *data);
+
 #endif
