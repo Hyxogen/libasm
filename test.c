@@ -158,6 +158,15 @@ static void check_push_front() {
   assert(list->next->next == NULL);
 }
 
+static void check_list_size() {
+  t_list *list = NULL;
+
+  for (int i = 0; i < 10; ++i) {
+    assert(ft_list_size(list) == i);
+    ft_list_push_front(&list, NULL);
+  }
+}
+
 int main()
 {
   check_strlen();
@@ -167,4 +176,5 @@ int main()
   check_read();
   check_atoi_base();
   check_push_front();
+  check_list_size();
 }
