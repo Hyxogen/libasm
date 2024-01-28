@@ -270,6 +270,7 @@ static void check_list_remove_if()
   assert(!list->next->next);
   assert(count_called == 1);
   ft_list_remove_if(&list, &i, cmp_equal, count);
+  assert(ft_list_size(list) == 0);
 }
 
 int main()
