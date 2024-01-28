@@ -55,7 +55,6 @@ ft_list_remove_if:
   jmp .free
 .update_beg:
   mov [rbx], rdi ; nxt
-  jmp .free
 .free:
   push rdi
   mov rdi, [r15]
