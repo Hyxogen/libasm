@@ -210,6 +210,68 @@ static void check_list_sort() {
   }
 }
 
+static int count_called = 0;
+static void count() { 
+  count_called += 1;
+}
+static int cmp_equal() { return 0; }
+
+static void check_list_remove_if()
+{
+  t_list *list = NULL;
+  ft_list_remove_if(&list, NULL, cmp_int, NULL);
+  assert(!list);
+
+  int i = 42;
+  ft_list_push_front(&list, &i);
+  count_called = 0;
+  ft_list_remove_if(&list, &i, cmp_int, count);
+  assert(!list);
+  assert(count_called == 1);
+
+  ft_list_push_front(&list, &i);
+  ft_list_push_front(&list, &i);
+  count_called = 0;
+  ft_list_remove_if(&list, &i, cmp_int, count);
+  assert(!list);
+  assert(count_called == 2);
+
+  int j = 21;
+  ft_list_push_front(&list, &i);
+  ft_list_push_front(&list, &j);
+  count_called = 0;
+  ft_list_remove_if(&list, &i, cmp_int, count);
+  assert(list);
+  assert(list->data == &j);
+  assert(!list->next);
+  assert(count_called == 1);
+  ft_list_remove_if(&list, &i, cmp_equal, count);
+
+  ft_list_push_front(&list, &j);
+  ft_list_push_front(&list, &i);
+  count_called = 0;
+  ft_list_remove_if(&list, &i, cmp_int, count);
+  assert(list);
+  assert(list->data == &j);
+  assert(!list->next);
+  assert(count_called == 1);
+  ft_list_remove_if(&list, &i, cmp_equal, count);
+
+  int x = 11;
+  ft_list_push_front(&list, &i);
+  ft_list_push_front(&list, &j);
+  ft_list_push_front(&list, &x);
+  count_called = 0;
+  ft_list_remove_if(&list, &j, cmp_int, count);
+  assert(list);
+  assert(list->data == &x);
+  assert(list->next);
+  assert(list->next->data == &i);
+  assert(!list->next->next);
+  assert(count_called == 1);
+  ft_list_remove_if(&list, &i, cmp_equal, count);
+}
+
 int main()
 {
   check_strlen();
@@ -221,4 +283,5 @@ int main()
   check_push_front();
   check_list_size();
   check_list_sort();
+  check_list_remove_if();
 }
