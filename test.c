@@ -139,7 +139,8 @@ static void check_atoi_base()
   assert(ft_atoi_base("8", base8) == 0);
 }
 
-static void check_push_front() {
+static void check_push_front()
+{
   t_list *list = NULL;
 
   int i = 42;
@@ -158,7 +159,8 @@ static void check_push_front() {
   assert(list->next->next == NULL);
 }
 
-static void check_list_size() {
+static void check_list_size()
+{
   t_list *list = NULL;
 
   for (int i = 0; i < 10; ++i) {
@@ -189,7 +191,8 @@ int cmp_int(int *a, int *b)
 
 #define TEST_LIST(arr, cmp) TEST_LISTN(arr, sizeof(arr)/sizeof(arr[0]), cmp)
 
-static void check_list_sort() {
+static void check_list_sort()
+{
   int empty[0];
   TEST_LISTN(empty, 0, cmp_int);
 
@@ -211,9 +214,7 @@ static void check_list_sort() {
 }
 
 static int count_called = 0;
-static void count() { 
-  count_called += 1;
-}
+static void count() { count_called += 1; }
 static int cmp_equal() { return 0; }
 
 static void check_list_remove_if()
