@@ -31,6 +31,7 @@ clean:
 fclean:
 	${MAKE} clean
 	rm -f $(NAME)
+	rm -f check
 
 re:
 	${MAKE} fclean
