@@ -25,6 +25,7 @@ ft_list_push_front:
 
   mov rdi, 0x10
   call malloc wrt ..plt
+  test rax, rax
   jz .end
 
   mov [rax], r12
